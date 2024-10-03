@@ -9,11 +9,36 @@
 <body>
     <h1>Choose an Episode</h1>
     <div class="button-container">
-        <button id="red-button" class="red-button">Red</button>
-        <button id="blue-button" class="blue-button">Blue</button>
+        <button id="red-button" class="red-button">Loading...</button>
+        <button id="blue-button" class="blue-button">Loading...</button>
     </div>
 
     <script>
+        // Replace this with your actual CSV link
+        const csvURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSVhtbbWh4QynheOMdUzxPuKSU6nVXFuavpoyDTNYSmacGlxIhng5Isu_BVCcSK_BuDVqEaAr7zw4RN/pub?gid=1843011267&single=true&output=csv';
+
+        // Function to parse CSV data
+        function parseCSV(text) {
+            const lines = text.split("\n");
+            return lines.map(line => line.split(","));
+        }
+
+        // Fetch the CSV data from the link
+        fetch(csvURL)
+            .then(response => response.text())
+            .then(data => {
+                const parsedData = parseCSV(data);
+
+                // Assuming first two rows contain button names
+                const redButtonName = parsedData[1][0]; // First row, first column
+                const blueButtonName = parsedData[1][1]; // First row, second column
+
+                // Set the button text
+                document.getElementById("red-button").textContent = redButtonName;
+                document.getElementById("blue-button").textContent = blueButtonName;
+            })
+            .catch(error => console.error('Error fetching the CSV data:', error));
+
         // Add event listeners for button clicks
         document.getElementById("red-button").addEventListener("click", function() {
             alert("You clicked the Red button!");
