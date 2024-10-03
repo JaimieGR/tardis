@@ -30,8 +30,8 @@
                 const parsedData = parseCSV(data);
 
                 // Access vertically, assuming button names are in the first column
-                const redButtonName = parsedData[0][1]; // First column, second row
-                const blueButtonName = parsedData[1][1]; // Second column, second row
+                const redButtonName = parsedData[0][50]; // First column, second row
+                const blueButtonName = parsedData[0][51]; // Second column, second row
 
                 // Set the button text
                 document.getElementById("red-button").textContent = redButtonName;
